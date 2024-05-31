@@ -1,0 +1,36 @@
+{
+  "name": "@acme/auth",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "default": "./src/index.ts"
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@acme/db": "workspace:*",
+    "@acme/data":"workspace:*",
+    "lucia": "^3.0.1",
+    "oslo": "^1.0.3",
+    "fp-ts": "^2.16.1",
+    "io-ts": "^2.2.21",
+    "io-ts-types": "^0.5.19",
+    "@lucia-auth/adapter-drizzle": "^1.0.0"
+  },
+  "devDependencies": {
+    "@acme/eslint-config": "workspace:*",
+    "@acme/prettier-config": "workspace:*",
+    "@acme/tsconfig": "workspace:*",
+    "eslint": "^9.2.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  },
+  "prettier": "@acme/prettier-config"
+}

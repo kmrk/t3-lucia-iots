@@ -1,0 +1,48 @@
+{
+  "name": "@acme/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    },
+    "./client": {
+      "types": "./dist/client.d.ts",
+      "default": "./src/client.ts"
+    },
+    "./schema": {
+      "types": "./dist/schema.d.ts",
+      "default": "./src/schema.ts"
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "gen":"drizzle-kit generate",
+    "migrate": "tsx src/migrate.ts",
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.30.10",
+    "postgres": "^3.4.3",
+    "bcryptjs": "^2.4.3"
+  },
+  "devDependencies": {
+    "@acme/eslint-config": "workspace:*",
+    "@acme/prettier-config": "workspace:*",
+    "@acme/tsconfig": "workspace:*",
+    "@types/bcryptjs": "^2.4.6",
+    "dotenv-cli": "^7.4.2",
+    "drizzle-kit": "^0.21.1",
+    "eslint": "^9.2.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5",
+    "tsx": "^4.7.0"
+  },
+  "prettier": "@acme/prettier-config"
+}

@@ -1,0 +1,25 @@
+# www.acme.coom {
+#         encode gzip
+#         tls your@acme.coom
+#         reverse_proxy host.docker.internal:3002
+# }
+
+# acme.coom {
+#         encode gzip
+#          tls your@acme.coom
+#         reverse_proxy host.docker.internal:3002
+# }
+
+# admin.acme.coom {
+#         encode gzip
+#          tls your@acme.coom
+#         reverse_proxy host.docker.internal:3001
+# }
+
+
+http://localhost:8088 {
+    handle_path /static* {
+        root * /srv/static
+        file_server browse
+    }
+}

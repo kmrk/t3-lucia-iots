@@ -1,0 +1,24 @@
+{
+  "name": "t3-lucia-iots",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "web:dev": "bun run --cwd apps/web dev",
+    "db:sync": "bun run --cwd packages/db gen && bun run --cwd packages/db migrate"
+  },
+  "devDependencies": {
+    "@acme/prettier-config": "workspace:*",
+    "@turbo/gen": "^1.13.3",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  },
+  "prettier": "@acme/prettier-config",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "tooling/*"
+  ],
+  "packageManager": "bun@1.1.8"
+}
