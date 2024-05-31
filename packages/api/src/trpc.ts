@@ -10,8 +10,8 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
-// import type { Session } from "@acme/auth";
-// import { db } from "@acme/db/client";
+import type { Session,User  } from "@acme/auth";
+import { db } from "@acme/db";
 
 /**
  * 1. CONTEXT
@@ -27,16 +27,20 @@ import { ZodError } from "zod";
  */
 export const createTRPCContext = (opts: {
   headers: Headers;
-  // session: Session | null;
+  session: Session | null;
+  user: User | null;
 }) => {
-  // const session = opts.session;
+  const session = opts.session;
+  const user = opts.user;
+
   const source = opts.headers.get("x-trpc-source") ?? "unknown";
 
-  // console.log(">>> tRPC Request from", source, "by", session?.user);
+  console.log(">>> tRPC Request from", source, "by", user?.name);
 
   return {
-    // session,
-    // db,
+    session,
+    user,
+    db,
   };
 };
 
@@ -94,13 +98,14 @@ export const publicProcedure = t.procedure;
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
-  // if (!ctx.session?.user) {
-  // throw new TRPCError({ code: "UNAUTHORIZED" });
-  // }
+  if (!ctx.session || !ctx.user) {
+    throw new TRPCError({ code: "UNAUTHORIZED" });
+  }
   return next({
     ctx: {
       // infers the `session` as non-nullable
-      // session: { ...ctx.session, user: ctx.session.user },
+      session: ctx.session,
+      user: ctx.user,// { ...ctx.session, user: ctx.user },
     },
   });
 });
