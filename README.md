@@ -9,6 +9,7 @@ template project that makes t3-turbo easy to use, with my non-vercle-cloud side-
   - ~~turbo~~ -> bun 
   - remove env config and validations
   - add some docker config for local-dev
+  - remove some scripts command
 
 
 ## Using
