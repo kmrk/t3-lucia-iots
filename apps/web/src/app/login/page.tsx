@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { isLeft } from "fp-ts/lib/Either";
 import { doLogin } from "~/lib/auth/actions";
+import { api } from "~/trpc/react";
 
 const Login = (props: any) => {
 
@@ -12,6 +13,9 @@ const Login = (props: any) => {
   const router = useRouter();
 
   const { searchParams: { callbackUrl } } = props;
+  const posts = api.post.list.useQuery();
+
+  console.log(posts);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();
@@ -26,7 +30,7 @@ const Login = (props: any) => {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
 
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-gray-200">
-            Sign in to your account
+            Sign in to your account {JSON.stringify(posts.data)}
           </h2>
         </div>
 

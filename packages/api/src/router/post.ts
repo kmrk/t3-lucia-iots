@@ -23,6 +23,10 @@ export const postRouter = {
 
   ),
 
+  list: protectedProcedure.query(
+    ()=>["Hello this data is protected"]
+  ),
+
   // byId: publicProcedure
   //   .input(z.object({ id: z.string() }))
   //   .query(({ ctx, input }) => {

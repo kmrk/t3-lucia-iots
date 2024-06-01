@@ -10,17 +10,22 @@ import { api } from "~/trpc/server";
 
 export default async function Home() {
 
-  // logout(session.session?.id!)
-  const session = await validateRequest();
-  if (!session.user) redirect("/login");
+  const auth: any = await validateRequest();
+  if (!auth.user) redirect("/login");
 
-  const posts = api.post.all();
+
+  const posts = await api.post.all();
+  const secrets =await api.post.list();
+ 
+
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       posts from server:{posts}
       <PostList />
-      {session.user && <>user is : {session.user.name}</>}
+      {auth.user && <>user is : {auth.user.name}<br/></>}
+
+      {secrets && JSON.stringify(secrets)}
       <Button>test button from @acme/ui </Button>
       <Input className="border-blue-300" />
     </main>

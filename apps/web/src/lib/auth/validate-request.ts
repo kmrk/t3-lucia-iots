@@ -4,12 +4,11 @@ import type { Session, User } from "lucia";
 import { lucia } from "@acme/auth";
 
 export const uncachedValidateRequest = async (): Promise<
-  { user: User; session: Session; } | { user: null; session: null; }
+  { session: Session  } | { session: null; }
 > => {
-
   const sessionId = cookies().get(lucia.sessionCookieName)?.value ?? null;
   if (!sessionId) {
-    return { user: null, session: null };
+    return { session: null };
   }
   const result = await lucia.validateSession(sessionId);
   // next.js throws when you attempt to set cookie when rendering page
@@ -33,7 +32,7 @@ export const uncachedValidateRequest = async (): Promise<
   } catch {
     console.error("Failed to set session cookie");
   }
-  return result;
+  return result; 
 };
 
 export const validateRequest = cache(uncachedValidateRequest);

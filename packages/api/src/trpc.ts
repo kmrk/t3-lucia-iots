@@ -27,19 +27,16 @@ import { db } from "@acme/db";
  */
 export const createTRPCContext = (opts: {
   headers: Headers;
-  session: Session | null;
-  user: User | null;
+  session: any | null;
 }) => {
   const session = opts.session;
-  const user = opts.user;
 
   const source = opts.headers.get("x-trpc-source") ?? "unknown";
-
-  console.log(">>> tRPC Request from", source, "by", user?.name);
+ 
+  console.log(">>> tRPC Request from", source, "by", session);
 
   return {
     session,
-    user,
     db,
   };
 };
@@ -98,14 +95,16 @@ export const publicProcedure = t.procedure;
  * @see https://trpc.io/docs/procedures
  */
 export const protectedProcedure = t.procedure.use(({ ctx, next }) => {
-  if (!ctx.session || !ctx.user) {
+
+
+console.log("======>",ctx);
+  if (!ctx.session ) {
     throw new TRPCError({ code: "UNAUTHORIZED" });
   }
   return next({
     ctx: {
       // infers the `session` as non-nullable
-      session: ctx.session,
-      user: ctx.user,// { ...ctx.session, user: ctx.user },
+      session: ctx.session 
     },
   });
 });

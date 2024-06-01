@@ -9,4 +9,4 @@ export const db = drizzle(connection, { schema });
 export * from './schema/index'; 
 
 export * from "drizzle-orm/sql";
-export { alias } from "drizzle-orm/pg-core";
+export { alias } from "drizzle-orm/pg-core"; 
