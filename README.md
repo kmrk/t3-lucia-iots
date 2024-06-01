@@ -1,4 +1,4 @@
-## Objective
+## Changes
 template project that makes t3-turbo easy to use (with my non-vercle-cloud side-projects)
   - nextjs
   - expo
