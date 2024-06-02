@@ -6,7 +6,8 @@ template project that makes t3-turbo easy to use (with my non-vercle-cloud side-
   - drizzle
   - ~~authjs~~ -> lucia
   - ~~zod~~ -> io-ts
-  - ~~turbo~~ -> bun 
+  - ~~pnpm~~ -> bun
+  - ~~turbo~~
   - remove env config and validations
   - add some docker config for local-dev
   - remove some scripts command
