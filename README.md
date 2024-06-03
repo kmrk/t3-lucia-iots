@@ -1,5 +1,5 @@
-## Changes
-template project that makes t3-turbo easy to use (with my non-vercle-cloud side-projects)
+## Derived from create-t3-turbo
+Boilerplate that makes t3-turbo easy to use (with my non-vercle-cloud side-projects)
   - nextjs
   - expo
   - trpc
