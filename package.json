@@ -10,7 +10,6 @@
   },
   "devDependencies": {
     "@acme/prettier-config": "workspace:*",
-    "@turbo/gen": "^1.13.3",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5"
   },
