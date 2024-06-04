@@ -16,7 +16,14 @@ export default async function Home() {
 
   const posts = await api.post.all();
   const secrets =await api.post.list();
- 
+
+  // const num = "15511111111a";
+  // server side will get error compile time
+
+  const num1 = "15511111111";
+
+  // const hello = await api.post.hello({phone:num,password:"abcd"});
+  const hello1 = await api.post.hello({phone:num1,password:"abcd"});
 
 
   return (
@@ -26,6 +33,12 @@ export default async function Home() {
       {auth.user && <>user is : {auth.user.name}<br/></>}
 
       {secrets && JSON.stringify(secrets)}
+      
+      {/* {JSON.stringify(hello)} */}
+
+      {JSON.stringify(hello1)}
+
+      
       <Button>test button from @acme/ui </Button>
       <Input className="border-blue-300" />
     </main>

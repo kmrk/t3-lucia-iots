@@ -20,5 +20,5 @@
     "packages/*",
     "tooling/*"
   ],
-  "packageManager": "bun@1.1.8"
+  "packageManager": "bun@1.1.12"
 }
