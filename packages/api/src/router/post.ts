@@ -1,19 +1,16 @@
 import type { TRPCRouterRecord } from "@trpc/server";
-import { z } from "zod";
-import * as t from "io-ts";
 
-import { desc, eq } from "@acme/db";
 // import { CreatePostSchema, Post } from "@acme/db/schema";
 
 import { protectedProcedure, publicProcedure } from "../trpc";
 import { ioParser } from "../io-ts-helper";
-import { UserCodec } from "../../../data/src/user";
+import { UserCodec } from "@acme/data";
 
 export const postRouter = {
   all: publicProcedure.query(
     () => [1, 2, 3, 4, 5, 6, 7, "a"]
   ),
-  
+
   hello: publicProcedure
     .input(
       ioParser(
