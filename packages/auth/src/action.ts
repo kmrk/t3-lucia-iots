@@ -28,7 +28,7 @@ const login = async (values: UserDTO, injectCookie: injectCookieCallback) =>
     TE.mapLeft(e => `输入数据项异常:${t.failure(e)}`),
     TE.bind("data", d => TE.right(d)),
     TE.bind("user", ({ data }) => TE.tryCatch(async () => await findUser(data), (e) => `数据库查询异常:${e}`)),
-    TE.chain(({ user, data }) => bcrypt.compareSync(data.password, user!.password) ? TE.right(user) : TE.left("用户名或密码错误")),
+    TE.chain(({ user, data }) => !bcrypt.compareSync(data.password, user!.password) ? TE.left("用户名或密码错误") : TE.right(user)),
     TE.chainIOK(u => makeSession(injectCookie)(u!))
   )();
 
@@ -36,4 +36,5 @@ const login = async (values: UserDTO, injectCookie: injectCookieCallback) =>
 const logout = async (sessionId: string) => {
   await lucia.invalidateSession(sessionId);
 };
+
 export { login, logout };
