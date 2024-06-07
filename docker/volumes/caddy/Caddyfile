@@ -1,13 +1,16 @@
 # www.acme.coom {
 #         encode gzip
 #         tls your@acme.coom
-#         reverse_proxy host.docker.internal:3002
+#         reverse_proxy host.docker.internal:3000
 # }
-
 # acme.coom {
-#         encode gzip
-#          tls your@acme.coom
-#         reverse_proxy host.docker.internal:3002
+#    handle_path /static* {
+#        root * /srv/static
+#        file_server browse
+#    }
+#    encode gzip
+#    tls your@acme.coom
+#    reverse_proxy host.docker.internal:3000
 # }
 
 # admin.acme.coom {
@@ -17,9 +20,22 @@
 # }
 
 
-http://localhost:8088 {
+http://localhost {
     handle_path /static* {
         root * /srv/static
         file_server browse
+    }
+    handle {
+        reverse_proxy http://host.docker.internal:3000
+    }
+}
+
+http://admin.localhost {
+    handle_path /static* {
+        root * /srv/static
+        file_server browse
+    }
+    handle {
+        reverse_proxy http://host.docker.internal:3001
     }
 }
