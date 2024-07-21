@@ -5,8 +5,11 @@
     "node": ">=20"
   },
   "scripts": {
-    "web:dev": "bun run --cwd apps/web dev",
-    "db:sync": "bun run --cwd packages/db gen && bun run --cwd packages/db migrate"
+    "dev:web": "bun run --cwd apps/web dev",
+    "dev:admin": "bun run --cwd apps/admin dev",
+    "db:sync": "bun run --cwd packages/db gen && bun run --cwd packages/db migrate",
+    "build:web": "pnpm --filter  web run build",
+    "build:admin": "pnpm  --filter admin run build"
   },
   "devDependencies": {
     "@acme/prettier-config": "workspace:*",
