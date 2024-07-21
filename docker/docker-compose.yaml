@@ -38,7 +38,7 @@ services:
       - ./volumes/caddy/Caddyfile:/etc/caddy/Caddyfile
       - ./data/static:/srv/static
     ports:
-      - '8088:8088'
+      - '80:80'
     depends_on:
       - database
       - adminer
