@@ -29,7 +29,7 @@
     "@acme/prettier-config": "workspace:*",
     "@acme/tsconfig": "workspace:*",
     "@acme/db": "workspace:*",
-    "@acme/core": "workspace:*",
+    "@acme/shared": "workspace:*",
     "@acme/api": "workspace:*",
     "@acme/data": "workspace:*",
     "eslint": "^9.2.0",
