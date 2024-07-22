@@ -25,16 +25,16 @@
     "tsx": "4.16.2"
   },
   "devDependencies": {
-    "@gptfuse/eslint-config": "workspace:*",
-    "@gptfuse/prettier-config": "workspace:*",
-    "@gptfuse/tsconfig": "workspace:*",
-    "@gptfuse/db": "workspace:*",
-    "@gptfuse/core": "workspace:*",
-    "@gptfuse/api": "workspace:*",
-    "@gptfuse/data": "workspace:*",
+    "@acme/eslint-config": "workspace:*",
+    "@acme/prettier-config": "workspace:*",
+    "@acme/tsconfig": "workspace:*",
+    "@acme/db": "workspace:*",
+    "@acme/core": "workspace:*",
+    "@acme/api": "workspace:*",
+    "@acme/data": "workspace:*",
     "eslint": "^9.2.0",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5"
   },
-  "prettier": "@gptfuse/prettier-config"
+  "prettier": "@acme/prettier-config"
 }
