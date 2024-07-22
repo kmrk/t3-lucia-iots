@@ -1,10 +1,9 @@
-version: '3'
 networks:
   local:
     driver: bridge
 services:
-  database:
-    container_name: database
+  db:
+    container_name: postgres
     image: postgres
     restart: always
     volumes:
@@ -15,9 +14,9 @@ services:
       local:
 
     environment:
-      - POSTGRES_DB=acmedb
-      - POSTGRES_USER=acmedb
-      - POSTGRES_PASSWORD=acmedb
+      - POSTGRES_DB=acme
+      - POSTGRES_USER=acme
+      - POSTGRES_PASSWORD=acme
 
   adminer:
     container_name: adminer
@@ -26,7 +25,7 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - database
+      - db
     networks:
       local:
 
@@ -40,7 +39,7 @@ services:
     ports:
       - '80:80'
     depends_on:
-      - database
+      - db
       - adminer
     networks:
       local:

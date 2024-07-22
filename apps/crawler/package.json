@@ -1,0 +1,40 @@
+{
+  "name": "@acme/crawler",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./src/index.ts"
+    }
+  },
+  "license": "private",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "fp-ts": "^2.16.1",
+    "io-ts": "^2.2.21",
+    "io-ts-types": "^0.5.19",
+    "tsx": "4.16.2"
+  },
+  "devDependencies": {
+    "@gptfuse/eslint-config": "workspace:*",
+    "@gptfuse/prettier-config": "workspace:*",
+    "@gptfuse/tsconfig": "workspace:*",
+    "@gptfuse/db": "workspace:*",
+    "@gptfuse/core": "workspace:*",
+    "@gptfuse/api": "workspace:*",
+    "@gptfuse/data": "workspace:*",
+    "eslint": "^9.2.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
+  },
+  "prettier": "@gptfuse/prettier-config"
+}
