@@ -5,7 +5,7 @@ import type { Config } from "drizzle-kit";
 // }
 
 //FIXME replace with correct
-const nonPoolingUrl ="postgresql://acme:acme@database:5432/acme";// process.env.POSTGRES_URL.replace(":6543", ":5432");
+const nonPoolingUrl ="postgresql://acme:acme@localhost:5432/acme";// process.env.POSTGRES_URL.replace(":6543", ":5432");
 
 
 
