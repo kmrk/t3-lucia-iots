@@ -1,5 +1,5 @@
 {
-  "name": "@acme/app",
+  "name": "@acme/mobile",
   "version": "0.1.0",
   "private": true,
   "main": "expo-router/entry",

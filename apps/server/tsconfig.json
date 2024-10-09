@@ -1,0 +1,12 @@
+{
+  "extends": ["@acme/tsconfig/base.json"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"]
+    },
+    "checkJs": false
+  },
+  "include": ["src", "*.ts", "*.js"],
+  "exclude": ["node_modules"]
+}
