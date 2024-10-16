@@ -1,9 +1,8 @@
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 
-import { appRouter, createTRPCContext } from "@acme/api";
+import { createNextjsContext, nextjsRouter } from "@acme/api";
 
 import { validateRequest } from "~/lib/auth/validate-request";
-
 
 const setCorsHeaders = (res: Response) => {
   res.headers.set("Access-Control-Allow-Origin", "*");
@@ -20,19 +19,18 @@ export const OPTIONS = () => {
   return response;
 };
 
-
 const handler = async (req: Request) => {
   const auth = await validateRequest();
   const response = await fetchRequestHandler({
     endpoint: "/api/trpc",
-    router: appRouter,
+    router: nextjsRouter,
     req,
     createContext: () =>
-      createTRPCContext({
+      createNextjsContext({
         session: auth.session ? auth : null,
         headers: req.headers,
       }),
-    onError({ error, path }) {
+    onError({ error, path }: any) {
       console.error(`>>> tRPC Error on '${path}'`, error);
     },
   });

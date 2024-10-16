@@ -1,22 +1,34 @@
 "use client";
 
 import { useState } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  defaultShouldDehydrateQuery,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
-import SuperJSON from "superjson";
+import superjson from "superjson";
 
-import type { AppRouter } from "@acme/api";
+import type { NextjsRouter } from "@acme/api";
 
 // import { env } from "~/env";
-
-const createQueryClient = () =>
+export const createQueryClient = () =>
   new QueryClient({
     defaultOptions: {
       queries: {
         // With SSR, we usually want to set some default staleTime
         // above 0 to avoid refetching immediately on the client
         staleTime: 30 * 1000,
+      },
+      dehydrate: {
+        serializeData: superjson.serialize,
+        shouldDehydrateQuery: (query) =>
+          defaultShouldDehydrateQuery(query) ||
+          query.state.status === "pending",
+      },
+      hydrate: {
+        deserializeData: superjson.deserialize,
       },
     },
   });
@@ -32,13 +44,21 @@ const getQueryClient = () => {
   }
 };
 
-export const api = createTRPCReact<AppRouter>();
+export const api = createTRPCReact<NextjsRouter>();
 
-export function TRPCReactProvider(props: { children: React.ReactNode; }) {
+const convertHeadersToObject = (headers: Headers): Record<string, string> => {
+  const result: Record<string, string> = {};
+  headers.forEach((value, key) => {
+    result[key] = value;
+  });
+  return result;
+};
+export function TRPCReactProvider(props: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
 
   const [trpcClient] = useState(() =>
     api.createClient({
+      transformer: superjson,
       links: [
         loggerLink({
           // enabled: (op) =>
@@ -46,12 +66,11 @@ export function TRPCReactProvider(props: { children: React.ReactNode; }) {
           //   (op.direction === "down" && op.result instanceof Error),
         }),
         unstable_httpBatchStreamLink({
-          transformer: SuperJSON,
           url: getBaseUrl() + "/api/trpc",
-          headers() {
+          headers: () => {
             const headers = new Headers();
             headers.set("x-trpc-source", "nextjs-react");
-            return headers;
+            return convertHeadersToObject(headers);
           },
         }),
       ],

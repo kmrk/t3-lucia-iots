@@ -1,39 +1,37 @@
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
-import type { AppRouter } from "./root";
-import { createContext } from "./fastify";
-import { appRouter } from "./root";
-import { createCallerFactory, createTRPCContext } from "./trpc";
+import type { FastifyRouter, NextjsRouter } from "./router";
+import {
+  createFastifyCallerFactory,
+  createFastifyContext,
+} from "./context/fastify";
+import {
+  createNextjsCallerFactory,
+  createNextjsContext,
+} from "./context/nextjs";
+import { fastifyRouter, nextjsRouter } from "./router";
 
-/**
- * Create a server-side caller for the tRPC API
- * @example
- * const trpc = createCaller(createContext);
- * const res = await trpc.post.all();
- *       ^? Post[]
- */
-const createCaller = createCallerFactory(appRouter);
+const createNextjsCaller = createNextjsCallerFactory(nextjsRouter);
+type NextjsRouterInputs = inferRouterInputs<NextjsRouter>;
+type NextjsRouterOutputs = inferRouterOutputs<NextjsRouter>;
 
-/**
- * Inference helpers for input types
- * @example
- * type PostByIdInput = RouterInputs['post']['byId']
- *      ^? { id: number }
- **/
-type RouterInputs = inferRouterInputs<AppRouter>;
-
-/**
- * Inference helpers for output types
- * @example
- * type AllPostsOutput = RouterOutputs['post']['all']
- *      ^? Post[]
- **/
-type RouterOutputs = inferRouterOutputs<AppRouter>;
+const createFastifyCaller = createFastifyCallerFactory(fastifyRouter);
+type FastifyRouterInputs = inferRouterInputs<FastifyRouter>;
+type FastifyRouterOutputs = inferRouterOutputs<FastifyRouter>;
 
 export {
-  createTRPCContext,
-  appRouter,
-  createCaller,
-  createContext as createFastifyContext,
+  createFastifyContext,
+  fastifyRouter,
+  createFastifyCaller,
+  createNextjsContext,
+  nextjsRouter,
+  createNextjsCaller,
 };
-export type { AppRouter, RouterInputs, RouterOutputs };
+export type {
+  FastifyRouter,
+  FastifyRouterInputs,
+  FastifyRouterOutputs,
+  NextjsRouter,
+  NextjsRouterInputs,
+  NextjsRouterOutputs,
+};
