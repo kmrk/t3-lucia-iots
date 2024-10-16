@@ -12,26 +12,7 @@ import superjson from "superjson";
 
 import type { NextjsRouter } from "@acme/api";
 
-// import { env } from "~/env";
-export const createQueryClient = () =>
-  new QueryClient({
-    defaultOptions: {
-      queries: {
-        // With SSR, we usually want to set some default staleTime
-        // above 0 to avoid refetching immediately on the client
-        staleTime: 30 * 1000,
-      },
-      dehydrate: {
-        serializeData: superjson.serialize,
-        shouldDehydrateQuery: (query) =>
-          defaultShouldDehydrateQuery(query) ||
-          query.state.status === "pending",
-      },
-      hydrate: {
-        deserializeData: superjson.deserialize,
-      },
-    },
-  });
+import { createQueryClient } from "./query-client";
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;
 const getQueryClient = () => {
@@ -58,7 +39,6 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
 
   const [trpcClient] = useState(() =>
     api.createClient({
-      transformer: superjson,
       links: [
         loggerLink({
           // enabled: (op) =>
@@ -66,6 +46,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
           //   (op.direction === "down" && op.result instanceof Error),
         }),
         unstable_httpBatchStreamLink({
+          transformer: superjson,
           url: getBaseUrl() + "/api/trpc",
           headers: () => {
             const headers = new Headers();
